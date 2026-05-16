@@ -1,0 +1,72 @@
+# 抖音创作者 Skill 套件 - 一键安装配置
+
+本文件供 WorkBuddy 的 `/install-skills` 命令识别和安装。
+
+```yaml
+name: douyin-creator-skills
+version: 1.0.0
+description: 抖音短视频内容创作全套AI工作流（13个Skill）
+author: chenxkj
+repo: https://github.com/chenxkj/laochen
+license: MIT
+
+skills:
+  - name: douyin-orchestrator
+    path: skills/douyin-orchestrator
+    description: 多Agent协同流水线，一键启动全流程
+
+  - name: douyin-topic-research
+    path: skills/douyin-topic-research
+    description: 选题调研+7关否决制+钩子生成
+
+  - name: douyin-script-writing
+    path: skills/douyin-script-writing
+    description: 口播逐字稿生成+品类适配结构
+
+  - name: douyin-script-scoring
+    path: skills/douyin-script-scoring
+    description: A/B/C/D四类评分+双盲评审+否决制
+
+  - name: douyin-plan-generator
+    path: skills/douyin-plan-generator
+    description: 方案组装+预尸检+标题/标签/BGM
+
+  - name: douyin-view-prediction
+    path: skills/douyin-view-prediction
+    description: 播放量预测+冷启动修正+概率分布
+
+  - name: douyin-data-review
+    path: skills/douyin-data-review
+    description: 数据复盘+偏差根因+校准触发
+
+  - name: douyin-account-review
+    path: skills/douyin-account-review
+    description: 账号层面复盘+阶段判断+合集规划
+
+  - name: douyin-workstyle
+    path: skills/douyin-workstyle
+    description: 创作者人设/语速/禁用词/发布时间定义
+
+  - name: douyin-status
+    path: skills/douyin-status
+    description: 状态看板（只读），Buffer/校准/待办
+
+  - name: douyin-research
+    path: skills/douyin-research
+    description: 通用调研（纵横分析法+专家路由）
+
+  - name: douyin-project
+    path: skills/douyin-project
+    description: 项目上下文配置（渐进式加载）
+
+  - name: douyin-longvideo-scoring
+    path: skills/douyin-longvideo-scoring
+    description: 长视频评分路由（→ script-scoring）
+
+dependencies: []
+
+post_install:
+  - "请阅读 SETUP.md 完成必做配置（人设/项目/状态文件）"
+  - "编辑 douyin-workstyle/SKILL.md 替换【】占位符为你自己的信息"
+  - "编辑 douyin-project/references/project-config.md 填入你的账号数据"
+```
