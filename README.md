@@ -62,57 +62,64 @@
 
 ---
 
-## ⚡ 快速开始
+## ⚡ 安装
 
 ### 前置条件
 
 - 已安装 [WorkBuddy Desktop](https://www.codebuddy.cn/) 或 CodeBuddy Code
 - 已登录并激活 AI 对话功能
 
-### 安装方式
+### 方式一：Git 仓库导入（推荐）
 
-**方式一：一键安装（推荐）**
+1. 打开 WorkBuddy → **设置 → 技能管理 → 导入技能**
+2. 选择 **从 Git 仓库导入**
+3. 粘贴仓库地址：`https://github.com/chenxkj/laochen`
+4. 确认导入，等待自动拉取完成
 
-在 WorkBuddy 对话中输入：
+### 方式二：手动安装
 
+**Windows (PowerShell)：**
+
+```powershell
+# 克隆仓库
+git clone https://github.com/chenxkj/laochen.git
+
+# 复制到用户级 skills 目录（所有项目可用）
+Copy-Item -Recurse -Path "laochen\skills\*" -Destination "$env:USERPROFILE\.workbuddy\skills\"
 ```
-/install-skills https://github.com/chenxkj/laochen
-```
 
-**方式二：手动安装**
-
-1. 克隆本仓库：
+**macOS / Linux：**
 
 ```bash
 git clone https://github.com/chenxkj/laochen.git
+cp -r laochen/skills/* ~/.workbuddy/skills/
 ```
 
-2. 将 `skills/` 目录下的所有文件夹复制到你的 WorkBuddy skills 目录：
+> **路径说明**：
+> - 用户级（所有项目可用）：`~/.workbuddy/skills/`
+> - 项目级（仅当前项目）：`你的项目目录/.workbuddy/skills/`
+> - CodeBuddy IDE 用户：`~/.codebuddy/skills/`
 
-```bash
-# 复制到用户级 skills 目录（推荐，所有项目可用）
-cp -r skills/douyin-* ~/.workbuddy/skills/
+### 方式三：拖拽导入
 
-# 或者复制到项目级 skills 目录
-cp -r skills/douyin-* /你的项目目录/.workbuddy/skills/
-```
-
-3. 重启 WorkBuddy 或刷新技能列表
+将 `skills/` 下的任意 Skill 文件夹直接拖入 WorkBuddy 主窗口，松手即自动导入。
 
 ---
 
 ## 🔧 配置（安装后必做）
 
-### 1. 设置你的人设信息
+> 📖 完整配置图文指引见 [SETUP.md](SETUP.md)
 
-编辑 `douyin-workstyle/SKILL.md`，将以下占位符替换为你的实际信息：
+安装后需要完成 3 步配置才能正常使用：
+
+### 1. 设置人设信息
+
+编辑 `douyin-workstyle/SKILL.md`，将占位符替换为你的实际信息：
 
 | 占位符 | 替换为 | 示例 |
 |:------|:------|:-----|
 | `【N年XX经验】` | 你的从业年限和领域 | 8年产品经理 |
 | `【你的学校/背景】` | 你的学历背景 | 浙大毕业 |
-| `【你的年龄】` | 你的年龄 | 35岁 |
-| `【N人团队】` | 你管理的团队规模 | 12人团队 |
 | `【你的昵称】` | 你的视频昵称 | 阿杰 |
 | `【你的账号名】` | 你的抖音账号名 | 阿杰说产品 |
 
@@ -122,23 +129,17 @@ cp -r skills/douyin-* /你的项目目录/.workbuddy/skills/
 
 ### 3. 初始化状态文件
 
-在项目根目录创建 `.cheat-state.json`：
+在你的项目根目录创建 `.cheat-state.json`（内容见 [SETUP.md](SETUP.md)）。
 
-```json
-{
-  "schema_version": "1.1",
-  "rubric_version": "v1.0",
-  "content_form": "opinion-video",
-  "typical_duration_seconds": 90,
-  "target_publish_cadence_days": 2,
-  "calibration_samples": 0,
-  "consecutive_directional_errors": [],
-  "shoots": [],
-  "pending_retros": [],
-  "pool_status": "none",
-  "data_layer": "markdown"
-}
+### 验证安装
+
+在 WorkBuddy 对话中输入：
+
 ```
+状态
+```
+
+如果看到状态看板输出，说明安装成功！
 
 ---
 
@@ -243,6 +244,22 @@ skills/
 
 ---
 
+## ❓ 常见问题
+
+**Q：安装后对话中没看到这些 Skill？**
+A：重启 WorkBuddy 或在设置中刷新技能列表。确认 Skill 文件夹放在正确路径下且包含 `SKILL.md` 文件。
+
+**Q：评分和写稿在同一个会话里行不行？**
+A：不行。双盲评分必须在**独立会话**中执行，否则评分会受写稿过程影响，失去校准价值。
+
+**Q：我没有历史视频数据怎么办？**
+A：不影响使用。`historical-data.md` 里的模板数据可以留着，等你发布3条以上视频后替换为真实数据，评分和预测会更准确。
+
+**Q：能只装其中几个 Skill 吗？**
+A：可以，每个 Skill 都能独立使用。但 Orchestrator 全流程需要所有核心 Skill 都已安装。
+
+---
+
 ## ⚠️ 注意事项
 
 1. **必须配置人设**：安装后务必修改 `douyin-workstyle` 和 `douyin-project` 中的占位符
@@ -260,4 +277,4 @@ MIT License - 自由使用、修改和分发。
 
 ## 🙏 致谢
 
-本套件基于 [cheat-on-content](https://github.com/anthropics/cheat-on-content) 校准体系思想，融合了实战运营经验，适配中文抖音创作场景。
+本套件基于 cheat-on-content 校准体系思想，融合了实战运营经验，适配中文抖音创作场景。
